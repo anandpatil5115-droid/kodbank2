@@ -113,7 +113,7 @@ export default function Dashboard() {
             <FloatingElements show={celebrating} />
 
             <div className="dashboard">
-                {/* Sidebar */}
+                {/* Sidebar — Solid Surface */}
                 <motion.aside
                     className="sidebar"
                     initial={{ opacity: 0, x: -20 }}
@@ -139,8 +139,8 @@ export default function Dashboard() {
                         <div style={{
                             padding: '16px',
                             borderRadius: 'var(--radius-md)',
-                            background: 'var(--bg-glass)',
-                            border: '1px solid var(--bg-glass-border)',
+                            background: 'var(--card-elevated)',
+                            border: '1px solid var(--border-color)',
                             textAlign: 'center'
                         }}>
                             <FiShield style={{ fontSize: '24px', color: 'var(--green-500)', marginBottom: '8px' }} />
@@ -161,7 +161,7 @@ export default function Dashboard() {
                     >
                         <h1>
                             Welcome back,{' '}
-                            <span style={{ background: 'var(--gradient-primary)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                            <span style={{ color: 'var(--accent)' }}>
                                 {user.username}
                             </span>{' '}
                             👋
@@ -230,7 +230,7 @@ export default function Dashboard() {
                             ].map((action, i) => (
                                 <motion.div
                                     key={i}
-                                    className="action-card glass-card"
+                                    className="action-card"
                                     whileHover={{ y: -6 }}
                                     custom={4 + i}
                                     variants={fadeUp}

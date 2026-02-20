@@ -87,14 +87,17 @@ export default function Register() {
     return (
         <div className="page-container">
             <div className="auth-split">
-                {/* Left Panel */}
+                {/* Left Panel — Background Image with Gradient Overlay */}
                 <motion.div
-                    className="auth-left"
-                    initial={{ opacity: 0, x: -40 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, ease: 'easeOut' }}
+                    className="register-left"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8, ease: 'easeOut' }}
                 >
-                    <div className="auth-left-content">
+                    <div className="register-left-bg" />
+                    <div className="register-left-overlay" />
+
+                    <div className="register-left-content">
                         <motion.div
                             animate={{ y: [0, -15, 0] }}
                             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
@@ -117,11 +120,12 @@ export default function Register() {
                                     variants={fadeUp}
                                     style={{
                                         padding: '8px 16px',
-                                        background: 'var(--bg-glass)',
+                                        background: 'rgba(255,255,255,0.12)',
                                         borderRadius: 'var(--radius-full)',
                                         fontSize: '13px',
                                         fontWeight: '600',
-                                        border: '1px solid var(--bg-glass-border)'
+                                        color: '#FFFFFF',
+                                        border: '1px solid rgba(255,255,255,0.2)'
                                     }}
                                 >
                                     {item}
@@ -131,8 +135,8 @@ export default function Register() {
                     </div>
                 </motion.div>
 
-                {/* Right Panel — Form */}
-                <div className="auth-right">
+                {/* Right Panel — Solid Background, Clean Form */}
+                <div className="register-right">
                     <motion.div
                         initial={{ opacity: 0, x: 40 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -140,7 +144,7 @@ export default function Register() {
                     >
                         <form
                             onSubmit={handleSubmit}
-                            className={`auth-card glass-card ${shaking ? 'form-shake' : ''}`}
+                            className={`auth-card ${shaking ? 'form-shake' : ''}`}
                         >
                             <motion.div variants={stagger} initial="hidden" animate="show">
                                 <motion.div variants={fadeUp}>

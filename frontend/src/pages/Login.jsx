@@ -54,39 +54,48 @@ export default function Login() {
 
     return (
         <div className="page-container">
-            <div className="auth-page">
-                {/* Floating particles background */}
-                <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}>
-                    {Array.from({ length: 20 }).map((_, i) => (
+            <div className="login-page">
+                {/* Full-screen background image */}
+                <div className="login-background" />
+                <div className="login-overlay" />
+
+                {/* Subtle floating shapes (very low opacity, on top of overlay) */}
+                <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1, overflow: 'hidden' }}>
+                    {[
+                        { size: 300, x: '10%', y: '20%', delay: 0, color: 'rgba(245,158,11,0.06)' },
+                        { size: 200, x: '70%', y: '60%', delay: 3, color: 'rgba(255,255,255,0.04)' },
+                        { size: 250, x: '50%', y: '80%', delay: 6, color: 'rgba(245,158,11,0.04)' },
+                    ].map((orb, i) => (
                         <motion.div
                             key={i}
                             style={{
                                 position: 'absolute',
-                                width: 4 + Math.random() * 6,
-                                height: 4 + Math.random() * 6,
+                                width: orb.size,
+                                height: orb.size,
                                 borderRadius: '50%',
-                                background: `rgba(${Math.random() > 0.5 ? '107, 70, 193' : '59, 130, 246'}, ${0.2 + Math.random() * 0.3})`,
-                                left: `${Math.random() * 100}%`,
-                                top: `${Math.random() * 100}%`
+                                background: orb.color,
+                                left: orb.x,
+                                top: orb.y,
                             }}
                             animate={{
-                                y: [0, -30 - Math.random() * 50, 0],
-                                x: [0, (Math.random() - 0.5) * 30, 0],
-                                opacity: [0.2, 0.6, 0.2]
+                                y: [0, -20, 0],
+                                x: [0, 15, 0],
+                                scale: [1, 1.05, 1]
                             }}
                             transition={{
-                                duration: 4 + Math.random() * 4,
+                                duration: 8,
                                 repeat: Infinity,
                                 ease: 'easeInOut',
-                                delay: Math.random() * 4
+                                delay: orb.delay
                             }}
                         />
                     ))}
                 </div>
 
+                {/* Login Card — Solid, elevated */}
                 <motion.div
                     ref={tiltRef}
-                    style={{ ...tiltStyle, position: 'relative', zIndex: 1 }}
+                    style={{ ...tiltStyle, position: 'relative', zIndex: 2 }}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
                     initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -95,8 +104,7 @@ export default function Login() {
                 >
                     <form
                         onSubmit={handleSubmit}
-                        className={`auth-card glass-card ${shaking ? 'form-shake' : ''}`}
-                        style={{ width: '420px' }}
+                        className={`login-card ${shaking ? 'form-shake' : ''}`}
                     >
                         <div style={{ textAlign: 'center', marginBottom: '8px' }}>
                             <motion.div
