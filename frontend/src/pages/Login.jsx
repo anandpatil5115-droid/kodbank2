@@ -5,7 +5,6 @@ import { FiUser, FiLock } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { useConfetti } from '../components/animations/Confetti';
-import { useTilt } from '../hooks/useTilt';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 
@@ -17,7 +16,6 @@ export default function Login() {
     const { login } = useAuth();
     const toast = useToast();
     const { fireConfetti } = useConfetti();
-    const { ref: tiltRef, style: tiltStyle, handleMouseMove, handleMouseLeave } = useTilt(8);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -53,71 +51,55 @@ export default function Login() {
     };
 
     return (
-        <div className="page-container">
-            <div className="login-page">
-                {/* Full-screen background image */}
-                <div className="login-background" />
-                <div className="login-overlay" />
+        <div className="login-fullscreen">
+            {/* Full-screen background image */}
+            <div className="login-bg-image" />
+            {/* Gradient overlay for readability */}
+            <div className="login-bg-overlay" />
 
-                {/* Subtle floating shapes (very low opacity, on top of overlay) */}
-                <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1, overflow: 'hidden' }}>
-                    {[
-                        { size: 300, x: '10%', y: '20%', delay: 0, color: 'rgba(245,158,11,0.06)' },
-                        { size: 200, x: '70%', y: '60%', delay: 3, color: 'rgba(255,255,255,0.04)' },
-                        { size: 250, x: '50%', y: '80%', delay: 6, color: 'rgba(245,158,11,0.04)' },
-                    ].map((orb, i) => (
-                        <motion.div
-                            key={i}
-                            style={{
-                                position: 'absolute',
-                                width: orb.size,
-                                height: orb.size,
-                                borderRadius: '50%',
-                                background: orb.color,
-                                left: orb.x,
-                                top: orb.y,
-                            }}
-                            animate={{
-                                y: [0, -20, 0],
-                                x: [0, 15, 0],
-                                scale: [1, 1.05, 1]
-                            }}
-                            transition={{
-                                duration: 8,
-                                repeat: Infinity,
-                                ease: 'easeInOut',
-                                delay: orb.delay
-                            }}
-                        />
-                    ))}
-                </div>
-
-                {/* Login Card — Solid, elevated */}
+            {/* Content layer */}
+            <div className="login-content">
+                {/* Left side — Welcome text */}
                 <motion.div
-                    ref={tiltRef}
-                    style={{ ...tiltStyle, position: 'relative', zIndex: 2 }}
-                    onMouseMove={handleMouseMove}
-                    onMouseLeave={handleMouseLeave}
-                    initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.6, ease: 'easeOut' }}
+                    className="login-left"
+                    initial={{ opacity: 0, x: -40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.7, ease: 'easeOut' }}
+                >
+                    <div className="login-welcome">
+                        <motion.div
+                            animate={{ y: [0, -8, 0] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                            style={{ fontSize: '56px', marginBottom: '16px' }}
+                        >
+                            🏦
+                        </motion.div>
+                        <h1 className="login-welcome-title">
+                            Welcome<br />Back
+                        </h1>
+                        <p className="login-welcome-desc">
+                            Your premium banking experience awaits. Secure, fast, and beautifully crafted for modern banking.
+                        </p>
+                        <div className="login-welcome-badges">
+                            <span>🔒 Secure</span>
+                            <span>⚡ Fast</span>
+                            <span>✨ Premium</span>
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* Right side — Sign in form */}
+                <motion.div
+                    className="login-right"
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
                 >
                     <form
                         onSubmit={handleSubmit}
-                        className={`login-card ${shaking ? 'form-shake' : ''}`}
+                        className={`login-form ${shaking ? 'form-shake' : ''}`}
                     >
-                        <div style={{ textAlign: 'center', marginBottom: '8px' }}>
-                            <motion.div
-                                animate={{ rotate: [0, 5, -5, 0] }}
-                                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                                style={{ fontSize: '48px', marginBottom: '16px', display: 'inline-block' }}
-                            >
-                                🏦
-                            </motion.div>
-                        </div>
-
-                        <h2 style={{ textAlign: 'center' }}>Welcome Back</h2>
-                        <p className="subtitle" style={{ textAlign: 'center' }}>Sign in to your KodBank account</p>
+                        <h2 className="login-form-title">Sign in</h2>
 
                         <Input
                             icon={FiUser}
@@ -140,15 +122,22 @@ export default function Login() {
 
                         <Button
                             type="submit"
-                            variant="primary"
+                            variant="gold"
                             loading={loading}
-                            style={{ width: '100%', marginTop: '8px', padding: '14px' }}
+                            style={{ width: '100%', marginTop: '8px', padding: '14px', fontSize: '16px', borderRadius: '8px' }}
                         >
-                            Sign In
+                            Sign in now
                         </Button>
 
-                        <div className="auth-footer">
-                            Don't have an account? <Link to="/register">Create one</Link>
+                        <div className="login-form-footer">
+                            <p>
+                                Don't have an account?{' '}
+                                <Link to="/register" className="login-link">Create one</Link>
+                            </p>
+                            <p className="login-terms">
+                                By signing in you agree to our{' '}
+                                <span>Terms of Service</span> | <span>Privacy Policy</span>
+                            </p>
                         </div>
                     </form>
                 </motion.div>

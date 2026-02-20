@@ -771,59 +771,186 @@ a {
     padding-top: 64px;
 }
 
-/* ========= LOGIN PAGE — Background Image ========= */
-.login-page {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: calc(100vh - 64px);
-    padding: 24px;
+/* ========= LOGIN PAGE — Full-screen Split Layout ========= */
+.login-fullscreen {
+    position: fixed;
+    inset: 0;
     overflow: hidden;
 }
 
-.login-background {
+.login-bg-image {
     position: absolute;
     inset: 0;
-    background-image: url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1920&q=80');
+    background-image: url('https://images.unsplash.com/photo-1501167786227-4cba60f6d58f?auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
     background-position: center;
     z-index: 0;
 }
 
-.login-overlay {
+.login-bg-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg,
-            rgba(0, 0, 0, 0.78) 0%,
-            rgba(0, 0, 0, 0.45) 50%,
-            rgba(0, 0, 0, 0.65) 100%);
+    background: linear-gradient(to right,
+            rgba(0, 0, 0, 0.70) 0%,
+            rgba(0, 0, 0, 0.40) 50%,
+            rgba(0, 0, 0, 0.55) 100%);
     z-index: 1;
 }
 
-.login-card {
+.login-content {
     position: relative;
     z-index: 2;
-    background: var(--card-surface);
-    border-radius: var(--radius-xl);
-    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     width: 100%;
-    max-width: 440px;
-    box-shadow: var(--shadow-4);
-    border: 1px solid var(--border-color);
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+    padding: 48px 40px;
 }
 
-.login-card h2 {
-    font-size: 28px;
-    font-weight: 800;
-    margin-bottom: 8px;
-    color: var(--text-primary);
+/* — Left side (Welcome text) — */
+.login-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 60px;
 }
 
-.login-card .subtitle {
-    color: var(--text-secondary);
+.login-welcome-title {
+    font-size: 56px;
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1.05;
+    font-style: italic;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.login-welcome-desc {
     font-size: 15px;
-    margin-bottom: 32px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 380px;
+    margin-bottom: 24px;
+}
+
+.login-welcome-badges {
+    display: flex;
+    gap: 12px;
+}
+
+.login-welcome-badges span {
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    font-weight: 600;
+    color: #FFFFFF;
+    transition: background var(--transition-fast);
+}
+
+.login-welcome-badges span:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+/* — Right side (Sign-in form) — */
+.login-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 380px;
+}
+
+.login-form-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 28px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Override input styles for the login page (white labels, transparent fields) */
+.login-form .input-group .input-icon {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.login-form .input-group:focus-within .input-icon {
+    color: #FFFFFF;
+}
+
+.login-form .input-field {
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    color: #1D1D1F;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.login-form .input-field:focus {
+    background: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.4), 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.login-form .input-field::placeholder {
+    color: #8E8E93;
+}
+
+.login-form .floating-label {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+}
+
+.login-form .input-field:focus+.floating-label,
+.login-form .input-field:not(:placeholder-shown)+.floating-label {
+    color: #FFFFFF;
+    background: transparent;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.login-form .input-error-msg {
+    color: #FCA5A5;
+}
+
+.login-form-footer {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.login-form-footer p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.login-link {
+    color: var(--accent) !important;
+    font-weight: 600;
+    transition: color var(--transition-fast);
+}
+
+.login-link:hover {
+    color: var(--accent-dark) !important;
+}
+
+.login-terms {
+    font-size: 12px !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.login-terms span {
+    color: rgba(255, 255, 255, 0.65);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+
+.login-terms span:hover {
+    color: #FFFFFF;
 }
 
 /* ========= REGISTER PAGE — Split Screen ========= */
@@ -1167,6 +1294,23 @@ a {
 
 /* ========= RESPONSIVE ========= */
 @media (max-width: 768px) {
+    .login-content {
+        grid-template-columns: 1fr;
+        padding: 24px;
+    }
+
+    .login-left {
+        display: none;
+    }
+
+    .login-form {
+        max-width: 100%;
+    }
+
+    .login-form-title {
+        font-size: 26px;
+    }
+
     .auth-split {
         grid-template-columns: 1fr;
     }
@@ -1211,10 +1355,6 @@ a {
 
     .error-code {
         font-size: 80px;
-    }
-
-    .login-card {
-        padding: 32px 24px;
     }
 }
 
