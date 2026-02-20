@@ -49,7 +49,7 @@ export default function Register() {
     const validate = () => {
         const e = {};
         if (!form.username || form.username.length < 3) e.username = 'Username must be at least 3 characters';
-        if (!form.email || !/\S+@\S+\.\S+/.test(form.email)) e.email = 'Valid email is required';
+        if (!form.email || !/@/.test(form.email)) e.email = 'Valid email is required (e.g. name@demo)';
         if (!form.password || form.password.length < 6) e.password = 'Password must be at least 6 characters';
         setErrors(e);
         return Object.keys(e).length === 0;
