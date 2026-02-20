@@ -12,10 +12,14 @@ import userRoutes from './routes/user.js';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// CORS — allow frontend on any localhost port
+// CORS — allow localhost in dev, Vercel in production
 app.use(cors({
     origin: function (origin, callback) {
-        if (!origin || origin.startsWith('http://localhost')) {
+        const allowed = [
+            process.env.FRONTEND_URL,           // set this in Railway
+            'https://kodbank2-ig6u.vercel.app', // your Vercel URL
+        ].filter(Boolean);
+        if (!origin || origin.startsWith('http://localhost') || allowed.includes(origin) || (origin && origin.endsWith('.vercel.app'))) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS'));
@@ -23,6 +27,7 @@ app.use(cors({
     },
     credentials: true
 }));
+
 
 // Middleware
 app.use(express.json());
