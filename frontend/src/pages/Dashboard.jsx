@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     FiDollarSign, FiCreditCard, FiTrendingUp, FiSend,
-    FiHome, FiActivity, FiSettings, FiShield
+    FiHome, FiActivity, FiSettings, FiShield, FiCpu
 } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
@@ -21,6 +21,7 @@ const sidebarItems = [
     { icon: FiSend, label: 'Transfers' },
     { icon: FiTrendingUp, label: 'Investments' },
     { icon: FiSettings, label: 'Settings' },
+    { icon: FiCpu, label: 'KodAssist' },
 ];
 
 const fadeUp = {
