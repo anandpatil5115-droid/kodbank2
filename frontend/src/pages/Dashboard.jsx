@@ -130,6 +130,11 @@ export default function Dashboard() {
                         <button
                             key={i}
                             className={`sidebar-item ${item.active ? 'active' : ''}`}
+                            onClick={() => {
+                                if (item.label === 'KodAssist' && window.botpress) {
+                                    window.botpress.open();
+                                }
+                            }}
                         >
                             <item.icon className="sidebar-icon" />
                             {item.label}
